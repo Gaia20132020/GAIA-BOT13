@@ -1,5 +1,4 @@
 """General cog: help, userinfo, serverinfo."""
-import discord
 from discord.ext import commands
 from datetime import datetime
 
