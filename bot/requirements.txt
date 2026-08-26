@@ -1,0 +1,6 @@
+discord.py[voice]>=2.7.0
+yt-dlp>=2025.1.0
+motor>=3.5.0
+pynacl>=1.5.0
+python-dotenv>=1.0.0
+emergentintegrations
