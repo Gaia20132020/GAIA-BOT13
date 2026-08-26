@@ -1,4 +1,3 @@
-db.py
 """MongoDB async helper for the Discord bot."""
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
