@@ -1,2 +1,26 @@
-discord.py>=2.3.0
-python-dotenv
+# Discord bot - dipendenze
+discord.py>=2.4.0
+
+# Database (MongoDB async driver)
+# Risolve: ModuleNotFoundError: No module named 'motor'
+# Usato da: db.py, cogs/moderation.py, cogs/economy.py, cogs/events.py
+motor
+
+# Download musica/video
+# Risolve: ModuleNotFoundError: No module named 'yt_dlp'
+# Usato da: cogs/music.py
+yt-dlp
+
+# Supporto voce (opzionale, ma consigliato per il player musicale)
+# Risolve i warning "PyNaCl is not installed, voice will NOT be supported"
+PyNaCl
+
+# ATTENZIONE: 'emergentintegrations' (usato in cogs/games.py) NON è un
+# pacchetto PyPI standard con questo nome. Verifica prima di aggiungerlo:
+# - se è un pacchetto privato/interno del team, va installato da un index
+#   custom (es. pip install --extra-index-url <url> emergentintegrations)
+# - se è su un repo git, va nella forma:
+#   git+https://github.com/<org>/<repo>.git
+# - se il nome è sbagliato, correggi l'import in cogs/games.py
+# Decommenta e correggi la riga sotto una volta verificato:
+# emergentintegrations
