@@ -24,4 +24,4 @@ PyNaCl
 # - se il nome è sbagliato, correggi l'import in cogs/games.py
 # Decommenta e correggi la riga sotto una volta verificato:
 # emergentintegrations
-
+   python-dotenv
