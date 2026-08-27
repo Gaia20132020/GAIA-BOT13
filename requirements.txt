@@ -25,3 +25,4 @@ PyNaCl
 # Decommenta e correggi la riga sotto una volta verificato:
 # emergentintegrations
    python-dotenv
+   google-generativeai
