@@ -2,11 +2,14 @@
 import os
 import random
 import hashlib
+import asyncio
 import discord
 from discord.ext import commands
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+import google.generativeai as genai
 
-EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 
 class Games(commands.Cog):
@@ -51,17 +54,19 @@ class Games(commands.Cog):
 
     @commands.command(name="chat", aliases=["ask", "ai"])
     async def chat_with_bot(self, ctx, *, prompt: str):
-        if not EMERGENT_LLM_KEY:
+        if not GEMINI_API_KEY:
             return await ctx.send("Chiave LLM non configurata.")
         async with ctx.typing():
             try:
-                chat = LlmChat(
-                    api_key=EMERGENT_LLM_KEY,
-                    session_id=f"discord-{ctx.author.id}",
-                    system_message="Sei un simpatico assistente Discord. Rispondi in italiano, breve e utile."
-                ).with_model("gemini", "gemini-3-flash-preview")
-                res = await chat.send_message(UserMessage(text=prompt))
-                text = str(res)
+                def _generate():
+                    model = genai.GenerativeModel(
+                        model_name="gemini-2.5-flash",
+                        system_instruction="Sei un simpatico assistente Discord. Rispondi in italiano, breve e utile."
+                    )
+                    result = model.generate_content(prompt)
+                    return result.text
+
+                text = await asyncio.to_thread(_generate)
                 if len(text) > 1900:
                     text = text[:1900] + "..."
                 await ctx.send(text)
